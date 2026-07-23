@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Built By Shantanu | Premium AI Experiences</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Elegant Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/style.css">
+  </head>
+  <body>
+    <!-- Preloader -->
+    <div class="preloader">
+      <div class="preloader-text">Loading Engineering Data...</div>
+      <div class="preloader-progress"><div class="preloader-bar"></div></div>
+    </div>
+
+    <!-- Film Grain Overlay (#5) -->
+    <div class="film-grain"></div>
+
+    <!-- Page Transition Wipe (#10) -->
+    <div class="page-wipe"></div>
+
+    <!-- Scroll Progress Indicator (#1) -->
+    <div class="scroll-progress">
+      <div class="scroll-progress-track">
+        <div class="scroll-progress-fill"></div>
+      </div>
+      <div class="scroll-progress-label">
+        <span class="scene-number">01</span>
+        <span class="scene-divider">/</span>
+        <span class="scene-total">12</span>
+      </div>
+    </div>
+
+    <!-- Background Canvas -->
+    <canvas id="watch-canvas"></canvas>
+
+    <!-- Content Sections -->
+    <main id="smooth-wrapper">
+      
+      <!-- Top Navigation -->
+      <nav class="top-nav">
+        <div class="brand">BUILT BY SHANTANU</div>
+        <button class="autoplay-btn magnetic" id="autoplay-btn">
+          <span class="play-icon">▶</span>
+          <span class="btn-text">AUTOPLAY</span>
+        </button>
+      </nav>
+
+      <div id="smooth-content">
+        
+        <!-- Brand Intro: Pure black, before watch appears -->
+        <section class="intro-section" style="height: 100vh;">
+          <div class="intro-content">
+            <p class="intro-label">A DIGITAL PRODUCT FILM BY</p>
+            <h1 class="intro-brand serif">Built By Shantanu</h1>
+            <p class="intro-tagline">Crafting Premium AI Experiences</p>
+          </div>
+        </section>
+
+        <!-- Video 1: Hero -->
+        <section class="video-section" data-video="1" style="height: 250vh;">
+          <div class="content-container sticky-content left-content mix-blend">
+            <h1 class="stagger-title">
+              <span class="line-wrap"><span class="line-inner serif white-text">The Anatomy</span></span>
+              <span class="line-wrap"><span class="line-inner serif gold-text italic">of Precision</span></span>
+            </h1>
+            <p class="subtitle fade-up">CRAFTING PREMIUM AI EXPERIENCES</p>
+          </div>
+        </section>
+
+        <!-- Video 2: 3D Rotation — Glassmorphism Spec Card (#9) -->
+        <section class="video-section" data-video="2" style="height: 250vh;">
+            <div class="content-container sticky-content left-content mix-blend">
+              <div class="scene-label fade-up">NO 01 &nbsp;&nbsp;&nbsp;&nbsp; FULL ROTATION</div>
+              <h1 class="stagger-title">
+                <span class="line-wrap"><span class="line-inner serif white-text">Engineered,</span></span>
+                <span class="line-wrap"><span class="line-inner serif gold-text italic">not designed.</span></span>
+              </h1>
+              <p class="scene-description fade-up">
+                Every surface is a decision. Every curve serves a function.<br>
+                The same discipline shapes the software we build.
+              </p>
+              
+              <div class="glass-card spec-card fade-up">
+                <div class="spec-row spec-fade">
+                  <span class="spec-label">CALIBER</span>
+                  <span class="spec-value">BR-01 SKELETON</span>
+                </div>
+                <div class="spec-row spec-fade">
+                  <span class="spec-label">CASE</span>
+                  <span class="spec-value">Ø 41 MM - TITANIUM GR 5</span>
+                </div>
+                <div class="spec-row spec-fade">
+                  <span class="spec-label">ORBIT</span>
+                  <span class="spec-value">360° - 24 FPS</span>
+                </div>
+              </div>
+            </div>
+        </section>
+
+        <!-- Video 3: Crystal Lift — Floating Annotation (#3) -->
+        <section class="video-section" data-video="3" style="height: 250vh;">
+            <div class="content-container sticky-content right-content mix-blend">
+              <h1 class="stagger-title">
+                <span class="line-wrap"><span class="line-inner serif white-text">Optically</span></span>
+                <span class="line-wrap"><span class="line-inner serif gold-text italic">Pure.</span></span>
+              </h1>
+              <p class="subtitle fade-up">SAPPHIRE CRYSTAL LIFT</p>
+            </div>
+            <!-- Floating annotation -->
+            <div class="floating-annotation annotation-left fade-up" style="top: 45%; left: 8%;">
+              <div class="annotation-line"></div>
+              <span class="annotation-text">SAPPHIRE CRYSTAL<br><small>1800 HV HARDNESS</small></span>
+            </div>
+        </section>
+
+        <!-- Video 4: Bezel Separation -->
+        <section class="video-section" data-video="4" style="height: 250vh;">
+            <div class="content-container sticky-content left-content mix-blend">
+              <h1 class="stagger-title">
+                <span class="line-wrap"><span class="line-inner serif white-text">Zero gravity.</span></span>
+                <span class="line-wrap"><span class="line-inner serif gold-text italic">Absolute control.</span></span>
+              </h1>
+              <p class="subtitle fade-up">HEX SCREWS * 12 &nbsp;&nbsp; TORQUE 0.04 NM &nbsp;&nbsp; BASE CHRONO</p>
+            </div>
+        </section>
+
+        <!-- Video 5: Dial Disassembly — Floating Annotation (#3) -->
+        <section class="video-section" data-video="5" style="height: 250vh;">
+            <div class="content-container sticky-content right-content mix-blend">
+                <h1 class="stagger-title">
+                  <span class="line-wrap"><span class="line-inner serif white-text">Layers of</span></span>
+                  <span class="line-wrap"><span class="line-inner serif gold-text italic">complexity.</span></span>
+                </h1>
+                <p class="subtitle fade-up">INDEPENDENT DIAL ANIMATION</p>
+            </div>
+            <!-- Floating annotation -->
+            <div class="floating-annotation annotation-left fade-up" style="top: 55%; left: 6%;">
+              <div class="annotation-line"></div>
+              <span class="annotation-text">DIAL LAYER<br><small>LUMINOUS INDICES</small></span>
+            </div>
+        </section>
+
+        <!-- Video 6: Inside the Movement — Stat Counters (#2) -->
+        <section class="video-section" data-video="6" style="height: 300vh;">
+            <div class="content-container sticky-content left-content mix-blend">
+                <h1 class="stagger-title">
+                  <span class="line-wrap"><span class="line-inner serif white-text">Microscopic</span></span>
+                  <span class="line-wrap"><span class="line-inner serif gold-text italic">precision.</span></span>
+                </h1>
+                <p class="subtitle fade-up">MASSIVE GEARS • BALANCE WHEEL</p>
+                
+                <!-- Stat Counters (#2) -->
+                <div class="stat-counters fade-up">
+                  <div class="stat-item glass-card">
+                    <span class="stat-number" data-target="327">0</span>
+                    <span class="stat-unit">Components</span>
+                  </div>
+                  <div class="stat-item glass-card">
+                    <span class="stat-number" data-target="28800">0</span>
+                    <span class="stat-unit">Vibrations/hr</span>
+                  </div>
+                  <div class="stat-item glass-card">
+                    <span class="stat-number" data-target="72">0</span>
+                    <span class="stat-unit">Hr Power Reserve</span>
+                  </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video 7: Exploded View — Floating Annotations (#3) -->
+        <section class="video-section" data-video="7" style="height: 250vh;">
+            <div class="content-container sticky-content right-content mix-blend">
+                <h1 class="stagger-title">
+                  <span class="line-wrap"><span class="line-inner serif white-text">Floating in</span></span>
+                  <span class="line-wrap"><span class="line-inner serif gold-text italic">harmony.</span></span>
+                </h1>
+                <p class="subtitle fade-up">HUNDREDS OF COMPONENTS REVEALED</p>
+            </div>
+            <!-- Floating annotations -->
+            <div class="floating-annotation annotation-left fade-up" style="top: 30%; left: 5%;">
+              <div class="annotation-line"></div>
+              <span class="annotation-text">MAINSPRING<br><small>NIVAROX ALLOY</small></span>
+            </div>
+            <div class="floating-annotation annotation-right fade-up" style="top: 65%; right: 5%;">
+              <span class="annotation-text">BALANCE WHEEL<br><small>GLUCYDUR 4 ARM</small></span>
+              <div class="annotation-line"></div>
+            </div>
+        </section>
+
+        <!-- Video 8: Feature Storytelling — Glassmorphism Cards (#9) -->
+        <section class="video-section features-video-section" data-video="8" style="height: 350vh;">
+          <div class="features-wrapper">
+            <div class="feature-item glass-card" style="align-self: flex-start; margin-left: 8rem;">
+              <h3 class="serif italic gold-text">Power Reserve</h3>
+              <p>72 hours of uninterrupted kinetic energy. Crafted for those who never stop.</p>
+            </div>
+            <div class="feature-item glass-card" style="align-self: flex-end; margin-right: 8rem; text-align: right;">
+              <h3 class="serif italic gold-text">Automatic Rotor</h3>
+              <p>Perpetual motion engineered for the modern era. Every movement charges the future.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Video 9: Cross-Section -->
+        <section class="video-section" data-video="9" style="height: 250vh;">
+             <div class="content-container sticky-content left-content mix-blend">
+                <h1 class="stagger-title">
+                  <span class="line-wrap"><span class="line-inner serif white-text">Sliced for</span></span>
+                  <span class="line-wrap"><span class="line-inner serif gold-text italic">transparency.</span></span>
+                </h1>
+                <p class="subtitle fade-up">INNER WORKINGS VISUALIZED</p>
+            </div>
+        </section>
+
+        <!-- Video 10: Reassembly — Easter Egg trigger (#11) -->
+        <section class="video-section" data-video="10" id="easter-egg-zone" style="height: 250vh;">
+             <div class="content-container sticky-content right-content mix-blend">
+                <h1 class="stagger-title">
+                  <span class="line-wrap"><span class="line-inner serif white-text">Every part</span></span>
+                  <span class="line-wrap"><span class="line-inner serif gold-text italic">returns home.</span></span>
+                </h1>
+                <p class="subtitle fade-up">MAGNETIC ALIGNMENT • TOLERANCE 0.001MM</p>
+            </div>
+        </section>
+
+        <!-- Video 11: Final Hero Orbit -->
+        <section class="video-section" data-video="11" style="height: 250vh;">
+            <div class="content-container sticky-content left-content mix-blend">
+                <h1 class="stagger-title">
+                  <span class="line-wrap"><span class="line-inner serif white-text">Absolute</span></span>
+                  <span class="line-wrap"><span class="line-inner serif gold-text italic">Perfection.</span></span>
+                </h1>
+            </div>
+        </section>
+
+        <!-- Video 12: Brand Reveal -->
+        <section class="video-section brand-section" data-video="12" style="height: 250vh;">
+          <div class="brand-gradient-overlay"></div>
+          <div class="content-container sticky-content brand-reveal">
+            <h2 class="brand-name fade-up">BUILT BY SHANTANU</h2>
+            <h1 class="stagger-title brand-headline">
+              <span class="line-wrap"><span class="line-inner serif white-text">Precision.</span></span><br>
+              <span class="line-wrap"><span class="line-inner serif gold-text italic">Crafted in Code.</span></span>
+            </h1>
+            <p class="brand-sub fade-up">AI Websites • AI Automation • Creative Engineering • 3D Digital Experiences</p>
+            <div class="cta-container fade-up">
+              <a href="https://www.linkedin.com/in/shantanu-shinde-a11b63170/" target="_blank" class="btn-primary magnetic page-wipe-trigger">Book a Project</a>
+              <a href="https://shantanu-portfolio-site.vercel.app/" target="_blank" class="btn-secondary magnetic page-wipe-trigger">View My Work</a>
+            </div>
+            
+            <div class="contact-info fade-up">
+              <div class="contact-item">
+                <span class="contact-label">EMAIL</span>
+                <a href="mailto:shantanushinde233@gmail.com" class="contact-link">shantanushinde233@gmail.com</a>
+              </div>
+              <div class="contact-item">
+                <span class="contact-label">CONTACT</span>
+                <a href="tel:9284769827" class="contact-link">+91 9284769827</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Footer (#6) -->
+        <footer class="site-footer">
+          <div class="footer-inner">
+            <div class="footer-brand serif italic gold-text">Built By Shantanu</div>
+            <div class="footer-links">
+              <a href="https://www.linkedin.com/in/shantanu-shinde-a11b63170/" target="_blank" aria-label="LinkedIn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              </a>
+              <a href="https://shantanu-portfolio-site.vercel.app/" target="_blank" aria-label="Portfolio">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </a>
+            </div>
+            <div class="footer-copy">&copy; 2026 Built By Shantanu. All rights reserved.</div>
+          </div>
+        </footer>
+
+      </div>
+    </main>
+    
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,739 @@
+:root {
+  --bg-color: #050505;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --accent-gold: #c9a84c; /* Rich Antique Gold — Rolex/Patek Philippe tier */
+  --glow-gold: rgba(201, 168, 76, 0.6);
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.serif { font-family: var(--font-serif); }
+.italic { font-style: italic; font-weight: 500; }
+.gold-text { color: var(--accent-gold); }
+.white-text { color: #ffffff; }
+
+/* Gold glow effect — applied via JS after reveal */
+.gold-glow {
+  text-shadow:
+    0 0 20px var(--glow-gold),
+    0 0 40px rgba(201, 168, 76, 0.3),
+    0 0 80px rgba(201, 168, 76, 0.1);
+}
+
+/* ==========================================
+   #5 — FILM GRAIN OVERLAY
+   ========================================== */
+.film-grain {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  animation: grain 0.5s steps(6) infinite;
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  30% { transform: translate(3%, -15%); }
+  50% { transform: translate(12%, 9%); }
+  70% { transform: translate(9%, 4%); }
+  90% { transform: translate(-1%, 7%); }
+}
+
+/* ==========================================
+   #10 — PAGE TRANSITION WIPE
+   ========================================== */
+.page-wipe {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--accent-gold);
+  z-index: 10000;
+  transform: translateY(100%);
+  pointer-events: none;
+}
+
+/* ==========================================
+   #1 — SCROLL PROGRESS INDICATOR
+   ========================================== */
+.scroll-progress {
+  position: fixed;
+  right: 2.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  opacity: 0; /* Animated in after preloader */
+}
+.scroll-progress-track {
+  width: 2px;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 1px;
+  position: relative;
+  overflow: hidden;
+}
+.scroll-progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: var(--accent-gold);
+  border-radius: 1px;
+  box-shadow: 0 0 8px var(--glow-gold);
+  transition: height 0.1s linear;
+}
+.scroll-progress-label {
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.4;
+}
+.scene-number {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent-gold);
+  font-variant-numeric: tabular-nums;
+}
+.scene-divider {
+  color: rgba(255, 255, 255, 0.2);
+}
+.scene-total {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Top Nav */
+.top-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 2.5rem 4rem;
+  z-index: 100;
+  pointer-events: none; /* Let clicks pass through if needed */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.brand {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  mix-blend-mode: difference;
+}
+.autoplay-btn {
+  pointer-events: auto;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  mix-blend-mode: difference;
+}
+.autoplay-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.autoplay-btn .play-icon {
+  font-size: 0.6rem;
+  color: var(--accent-gold);
+}
+.autoplay-btn .btn-text {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+}
+
+/* Stagger Title Animation Helpers */
+.stagger-title {
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+}
+.line-wrap {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
+}
+.line-inner {
+  display: inline-block;
+  transform: translateY(110%) rotateZ(3deg);
+  transform-origin: top left;
+  opacity: 0;
+}
+/* SplitType char-level styling */
+.line-inner .char {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(40px) rotateZ(5deg);
+  transition: text-shadow 0.6s ease;
+}
+
+/* Lenis Smooth Scroll Recommended CSS */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-scrolling iframe { pointer-events: none; }
+
+/* Preloader */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg-color);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-primary);
+}
+.preloader-text {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  color: var(--text-secondary);
+}
+.preloader-progress {
+  width: 200px;
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+  position: relative;
+  overflow: hidden;
+}
+.preloader-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: var(--text-primary);
+}
+
+/* Background Canvas */
+#watch-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* Brand Intro Section — transparent, overlays the canvas at frame_000000 */
+.intro-section {
+  position: relative;
+  width: 100vw;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.intro-content {
+  text-align: center;
+  opacity: 0;
+}
+.intro-label {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+.intro-brand {
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-weight: 500;
+  font-style: italic;
+  color: var(--accent-gold);
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.01em;
+  text-shadow:
+    0 0 30px var(--glow-gold),
+    0 0 60px rgba(201, 168, 76, 0.2);
+}
+.intro-tagline {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+}
+
+/* Content Sections */
+#smooth-wrapper {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+.video-section {
+  position: relative;
+  width: 100vw;
+}
+
+/* Key fix: each sticky-content is hidden unless its section is active */
+.sticky-content {
+  position: sticky;
+  top: 0;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+}
+.sticky-content.is-active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.content-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 4rem;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mix-blend {
+  mix-blend-mode: difference;
+}
+
+.center-content { align-items: center; text-align: center; }
+.left-content { align-items: flex-start; text-align: left; padding-left: 8rem; }
+.right-content { align-items: flex-end; text-align: right; padding-right: 8rem; }
+
+.subtitle {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-top: 2rem;
+  font-weight: 500;
+}
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+/* Left Aligned Spec Card Styles */
+.scene-label {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  margin-bottom: 3rem;
+  font-weight: 600;
+}
+.scene-description {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 1rem;
+  margin-bottom: 4rem;
+  max-width: 450px;
+  font-weight: 300;
+}
+
+/* ==========================================
+   #9 — GLASSMORPHISM CARDS
+   ========================================== */
+.glass-card {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+.spec-card {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.spec-row:last-child {
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.spec-label {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: rgba(255,255,255,0.4);
+  font-weight: 500;
+}
+.spec-value {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.9);
+  font-weight: 600;
+}
+.spec-fade {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* ==========================================
+   #3 — FLOATING TECHNICAL ANNOTATIONS
+   ========================================== */
+.floating-annotation {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(20px);
+}
+.annotation-left {
+  flex-direction: row;
+}
+.annotation-right {
+  flex-direction: row-reverse;
+}
+.annotation-line {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(to right, var(--accent-gold), transparent);
+}
+.annotation-right .annotation-line {
+  background: linear-gradient(to left, var(--accent-gold), transparent);
+}
+.annotation-text {
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  line-height: 1.8;
+  white-space: nowrap;
+}
+.annotation-text small {
+  font-size: 0.5rem;
+  color: var(--accent-gold);
+  letter-spacing: 0.2em;
+}
+
+/* ==========================================
+   #2 — STAT COUNTERS
+   ========================================== */
+.stat-counters {
+  display: flex;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+.stat-item {
+  padding: 1.5rem 2rem;
+  text-align: center;
+  min-width: 140px;
+}
+.stat-number {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 500;
+  color: var(--accent-gold);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 0.5rem;
+}
+.stat-unit {
+  font-family: var(--font-sans);
+  font-size: 0.55rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+}
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+}
+
+/* Features Section */
+.features-video-section {
+  padding-bottom: 20vh; 
+}
+.features-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 50vh 5vw;
+  display: flex;
+  flex-direction: column;
+  gap: 80vh;
+}
+.feature-item {
+  max-width: 450px;
+  opacity: 0;
+  transform: translateY(50px);
+  padding: 3rem;
+  /* Strong dark glass — ensures text is always readable over busy watch frames */
+  background: rgba(5, 5, 5, 0.75);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+.feature-item h3 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  margin-bottom: 1rem;
+}
+.feature-item p {
+  color: rgba(255,255,255,0.8);
+  line-height: 1.6;
+  font-size: 1.1rem;
+  font-weight: 300;
+}
+
+/* Brand Reveal Section */
+.brand-section {
+  position: relative;
+  z-index: 10;
+  background: transparent;
+}
+.brand-gradient-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(to top, var(--bg-color) 30%, transparent);
+  pointer-events: none;
+  z-index: -1;
+}
+.brand-reveal {
+  align-items: center;
+  text-align: center;
+  mix-blend-mode: normal;
+}
+.brand-name {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+.brand-headline {
+  margin-bottom: 1.5rem;
+}
+.brand-sub {
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  max-width: 600px;
+  line-height: 1.6;
+}
+.cta-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  pointer-events: auto;
+}
+.btn-primary, .btn-secondary {
+  padding: 1.2rem 3rem;
+  border-radius: 2px;
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  cursor: pointer;
+}
+.btn-primary {
+  background: var(--text-primary);
+  color: var(--bg-color);
+  font-weight: 600;
+}
+.btn-primary:hover {
+  background: var(--accent-gold);
+  color: var(--bg-color);
+}
+.btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.4);
+}
+
+.contact-info {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: center;
+}
+.contact-label {
+  font-family: var(--font-sans);
+  font-size: 0.55rem;
+  letter-spacing: 0.3em;
+  color: rgba(255, 255, 255, 0.4);
+}
+.contact-link {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  pointer-events: auto;
+}
+.contact-link:hover {
+  color: var(--accent-gold);
+}
+
+/* ==========================================
+   #6 — FOOTER
+   ========================================== */
+.site-footer {
+  position: relative;
+  z-index: 10;
+  background: var(--bg-color);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 4rem 0 3rem;
+}
+.footer-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+.footer-brand {
+  font-size: 1.5rem;
+}
+.footer-links {
+  display: flex;
+  gap: 2rem;
+}
+.footer-links a {
+  color: rgba(255, 255, 255, 0.4);
+  transition: color 0.3s ease, transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.footer-links a:hover {
+  color: var(--accent-gold);
+  transform: translateY(-2px);
+}
+.footer-copy {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.25);
+  text-transform: uppercase;
+}
+
+/* ==========================================
+   #11 — EASTER EGG
+   ========================================== */
+.easter-egg-flash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--accent-gold);
+  z-index: 10001;
+  opacity: 0;
+  pointer-events: none;
+}
